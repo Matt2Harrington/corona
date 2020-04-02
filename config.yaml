@@ -1,0 +1,4 @@
+host: localhost
+username: postgres
+port: 5432
+databaseName: corona

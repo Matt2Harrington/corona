@@ -16,3 +16,6 @@
 
 # IDE
 **/.idea
+
+# config
+config.yaml
