@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/alecthomas/gometalinter/_linters/src/gopkg.in/yaml.v2"
 	"github.com/google/uuid"
 	"io/ioutil"
 	"log"
@@ -20,14 +21,9 @@ var (
 	eventIDs []string
 	c        pb.EventAPIClient
 	stop     bool
-
 )
 
 const (
-	host     = "localhost"
-	port     = 5432
-	user     = "postgres"
-	dbname   = "corona"
 	insertDataStatement string = `INSERT INTO data (id, country, cases, cases_today, deaths, deaths_today, recovered, 
 									active, critical, cases_per_one_million, deaths_per_one_million, updated) 
 									VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)`
@@ -56,6 +52,14 @@ type CountryInfo struct {
 	ID        int     `json:"_id"`
 	Latitude  float64 `json:"lat"`
 	Longitude float64 `json:"long"`
+}
+
+// Postgres info
+type Postgres struct {
+	Host string  `yaml:"host"`
+	Port int     `yaml:"port"`
+	User string  `yaml:"username"`
+	DBName string`yaml:"databaseName"`
 }
 
 func main() {
@@ -89,13 +93,14 @@ func main() {
 
 	var countries []Coronavirus
 
-	// info := Coronavirus{}
 	if err := json.Unmarshal([]byte(body), &countries); err != nil {
 		log.Fatal(err)
 	}
 
+	var pg Postgres
+	values := pg.getPostgres()
 	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable",
-		host, port, user, dbname)
+		values.Host, values.Port, values.User, values.DBName)
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -109,7 +114,6 @@ func main() {
 	}
 
 	fmt.Println("Successfully connected!")
-
 	for _, country := range countries {
 		id := uuid.New()
 
@@ -126,4 +130,17 @@ func main() {
 			panic(err)
 		}
 	}
+}
+
+func (c *Postgres) getPostgres() *Postgres {
+	yamlFile, err := ioutil.ReadFile("config.yaml")
+	if err != nil {
+		log.Printf("yamlFile.Get err   #%v ", err)
+	}
+	err = yaml.Unmarshal(yamlFile, c)
+	if err != nil {
+		log.Fatalf("Unmarshal: %v", err)
+	}
+
+	return c
 }
