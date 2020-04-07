@@ -21,3 +21,5 @@
 *.yaml
 
 /portal/*
+
+index.go
