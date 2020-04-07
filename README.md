@@ -34,3 +34,7 @@ COVID-19
 - Location data is stored in the `info` table
 - `data_id` links to the id in the data table for specific data records
 
+## Cleanup
+- In case there is duplicate data, simply run the `table_cleanup.sql` file against the database
+- Based on time_ran column, which is automated on insert inside of go
+
