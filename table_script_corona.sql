@@ -11,5 +11,6 @@ create table if not exists data
 	critical               integer,
 	cases_per_one_million  float,
 	deaths_per_one_million float,
-	updated                date
+	updated                timestamp,
+	  time_ran             timestamp default '2020-04-06 20:59:23'::timestamp without time zone
 );
