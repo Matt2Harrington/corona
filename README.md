@@ -27,7 +27,7 @@ COVID-19
 
 ## Running
 - Have Postgres running locally
-- Navigate to directory of repo and run `go run corona.go` to pull new data
+- Navigate to directory of repo and run `go run corona.go index.go` to pull new data
 - (Data usually gets updated 25-30 minutes on API call)
 
 ## Storage
@@ -37,4 +37,7 @@ COVID-19
 ## Cleanup
 - In case there is duplicate data, simply run the `table_cleanup.sql` file against the database
 - Based on time_ran column, which is automated on insert inside of go
+
+## Portal
+- Portal is a work in progress, but for now real data has been inserted or an example manually
 
