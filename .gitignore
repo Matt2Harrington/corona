@@ -19,7 +19,3 @@
 
 # config
 *.yaml
-
-/portal/*
-
-index.go

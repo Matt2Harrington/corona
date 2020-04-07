@@ -111,7 +111,7 @@ func requestAPI() error {
 		return err
 	}
 
-	req.Header.Set("User-Agent", "corona-counts")
+	req.Header.Set("User-Agent", "Access-Control-Allow-Origin")
 
 	res, getErr := coronaClient.Do(req)
 	if getErr != nil {
@@ -168,7 +168,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	//handleRequests()
+	handleRequests()
 }
 
 
