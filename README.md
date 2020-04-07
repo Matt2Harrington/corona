@@ -27,8 +27,9 @@ COVID-19
 
 ## Running
 - Have Postgres running locally
-- Navigate to directory of repo and run `go run corona.go index.go` to pull new data
+- Navigate to directory of repo and run `go run corona.go` to pull new data
 - (Data usually gets updated 25-30 minutes on API call)
+- Set up the <a href="https://github.com/Matt2Harrington/coronaAPI">CoronaAPI</a>
 
 ## Storage
 - Location data is stored in the `info` table
@@ -39,5 +40,5 @@ COVID-19
 - Based on time_ran column, which is automated on insert inside of go
 
 ## Portal
-- Portal is a work in progress, but for now real data has been inserted or an example manually
+- Portal is a work in progress, but after running the CoronaAPI, simply use a local server (such as in atom) to view the basic line graph
 
