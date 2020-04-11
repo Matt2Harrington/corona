@@ -1,7 +1,6 @@
 $(document).ready(function () {
   var dataResults = [];
   var timestamps = [];
-  var cases = [];
   var deaths = [];
   // var countries = [];
   $.ajax({
@@ -27,8 +26,8 @@ $(document).ready(function () {
     for (i = 0; i < dataResults[0]['DataList'].length; i++) {
       if (dataResults[0]['DataList'][i].Country === 'USA') {
         timestamps.push(dataResults[0]['DataList'][i].Updated)
-        cases.push(dataResults[0]['DataList'][i].Cases)
-        var ctx = document.getElementById('myChart').getContext('2d');
+        deaths.push(dataResults[0]['DataList'][i].Deaths)
+        var ctx = document.getElementById('deathsChart').getContext('2d');
         var chart = new Chart(ctx, {
             // The type of chart we want to create
             type: 'line',
@@ -37,9 +36,9 @@ $(document).ready(function () {
             data: {
                 labels: timestamps,
                 datasets: [{
-                    label: 'United States Cases of COVID-19',
+                    label: 'United States Deaths by COVID-19',
                     borderColor: 'rgb(255, 99, 132)',
-                    data: cases
+                    data: deaths
                 }]
             },
 
