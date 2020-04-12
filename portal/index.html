@@ -11,6 +11,7 @@
      <title>COVID-19 Portal</title>
      <link rel="icon" href="assets/images/White M2H.png" type="image/">
      <!-- Custom CSS -->
+     <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
      <link href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
      <!-- link for bootstrap -->
@@ -20,6 +21,21 @@
    </head>
 
    <body>
+    <div class="navbar fixed-top" id="mobileTrigger">
+      <span id="toggle" class="menu-toggle">
+        <i class="fas fa-bars fa-2x"></i>
+        <span id="normalHamburger"></span>
+      </span>
+    </div>
+
+    <div class="navbar fixed-top" id="header">
+        <a href="index.html" id="emojiHome"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/microbe_1f9a0.png" alt="covid19emoji" height="30" width="30"/></a>
+      <div id="topLabels">
+        <a href="deaths.html" id="aboutTop" class="headerLink">Deaths</a>
+        <a href="worldwide.html" id="educationTop" class="headerLink">Worldwide</a>
+      </div>
+    </div>
+    <!-- End of the header -->    <!-- End of the header -->
     <canvas id="myChart"></canvas>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>

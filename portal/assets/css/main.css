@@ -1,0 +1,82 @@
+body {
+  color: black;
+  font-family: "IBM Plex Sans";
+  width: 100%;
+}
+
+hr {
+  color: white;
+}
+
+body > div.container-fluid {
+  margin-top: 50px;
+}
+
+#toggle {
+  color: white;
+  text-align: left;
+  display: block;
+}
+
+#toggle:hover {
+  cursor: pointer;
+}
+
+#wrapper {
+  margin-top: 10px;
+  padding: 0px 0px 0px 0px;
+}
+
+#header {
+  text-align: right;
+  height: 50px!important;
+  background: black!important;
+  opacity: 1.0;
+  width: 100%;
+  -webkit-user-select: none;
+  padding-right: 0px;
+}
+
+#emojiHome {
+  margin-right: 10px;
+}
+
+#topLabels {
+  text-align: right;
+  width: auto;
+  -webkit-user-select: none;
+  /* margin-bottom: 5px; */
+}
+
+#topLabels a {
+  text-decoration: none;
+  color: white;
+}
+
+#topLabels a:hover {
+  color: #cccccc;
+}
+
+#aboutTop {
+  margin-right: 30px;
+}
+
+#educationTop {
+  margin-right: 30px;
+}
+
+#experienceTop {
+  margin-right: 30px;
+}
+
+#technologiesTop {
+  margin-right: 30px;
+}
+
+#photographyTop {
+  margin-right: 30px;
+}
+
+#mobileTrigger {
+  display: none;
+}
