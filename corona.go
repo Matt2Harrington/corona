@@ -95,7 +95,7 @@ func setUpPostgres() (*sql.DB, error) {
 		return db, err
 	}
 
-	fmt.Println("Successfully connected!")
+	fmt.Println("Successfully connected! to Postgres")
 	return db, nil
 }
 
@@ -146,16 +146,31 @@ func insertDataToPostgres() error {
 			return err
 		}
 	}
+	fmt.Println("Data Inserted at: " + time.Now().String())
 	return nil
 }
 
-func main() {
+func apiGetTimer() {
+	for {
+		time.Sleep(1 * time.Hour)
+		go callingData()
+	}
+}
+
+func callingData() {
 	// func to call API to get JSON data
 	err := requestAPI()
 	if err != nil {
 		log.Fatal(err)
 	}
 
+	err = insertDataToPostgres()
+	if err != nil {
+		log.Fatal(err)
+	}
+}
+
+func main() {
 	// call to database to setup
 	db, err = setUpPostgres()
 	if err != nil {
@@ -163,10 +178,20 @@ func main() {
 	}
 	defer db.Close()
 
+	// func to call API to get JSON data for first initial run
+	err := requestAPI()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// inserts data into postgres for first initial run
 	err = insertDataToPostgres()
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	// call polling function to recall API GET call after an hour
+	apiGetTimer()
 }
 
 
