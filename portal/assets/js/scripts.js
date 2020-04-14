@@ -38,8 +38,9 @@ $(document).ready(function () {
                 labels: timestamps,
                 datasets: [{
                     label: 'United States Cases of COVID-19',
-                    borderColor: 'rgb(255, 99, 132)',
-                    data: cases
+                    borderColor: 'rgb(19, 235, 162)',
+                    data: cases,
+                    fill: false
                 }]
             },
 

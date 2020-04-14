@@ -23,14 +23,14 @@ body > div.container-fluid {
 }
 
 #wrapper {
-  margin-top: 10px;
+  margin-top: 50px;
   padding: 0px 0px 0px 0px;
 }
 
 #header {
   text-align: right;
   height: 50px!important;
-  background: black!important;
+  background: #056644!important;
   opacity: 1.0;
   width: 100%;
   -webkit-user-select: none;
@@ -57,11 +57,11 @@ body > div.container-fluid {
   color: #cccccc;
 }
 
-#aboutTop {
+#deathsTop {
   margin-right: 30px;
 }
 
-#educationTop {
+#worldwideTop {
   margin-right: 30px;
 }
 
@@ -79,4 +79,8 @@ body > div.container-fluid {
 
 #mobileTrigger {
   display: none;
+}
+
+#us-cases-title {
+  margin-left: 25px;
 }
