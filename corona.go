@@ -100,7 +100,7 @@ func setUpPostgres() (*sql.DB, error) {
 }
 
 func requestAPI() error {
-	url := "https://corona.lmao.ninja/countries?sort=country"
+	url := "https://corona.lmao.ninja/v2/countries"
 
 	coronaClient := http.Client{
 		Timeout: time.Second * 2, // Maximum of 2 secs
