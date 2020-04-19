@@ -9,8 +9,9 @@
      <meta property="og:image" content="assets/images/White M2H.png" />
 
      <title>COVID-19 Portal</title>
-     <link rel="icon" href="assets/images/White M2H.png" type="image/">
+     <link rel="icon" href="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/microbe_1f9a0.png" type="image/">
      <!-- Custom CSS -->
+     <link rel="stylesheet" type="text/css" href="assets/css/main.css"/>
      <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
      <link href="https://fonts.googleapis.com/css?family=Waiting+for+the+Sunrise&display=swap" rel="stylesheet">
      <!-- link for bootstrap -->
@@ -20,7 +21,18 @@
    </head>
 
    <body>
-    <canvas id="worldwideDeaths"></canvas>
+     <div class="navbar fixed-top" id="header">
+         <a href="index.html" id="emojiHome"><img src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/240/apple/237/microbe_1f9a0.png" alt="covid19emoji" height="30" width="30"/></a>
+       <div id="topLabels">
+         <a href="deaths.html" id="deathsTop" class="headerLink">Deaths</a>
+         <a href="worldwide.html" id="worldwideTop" class="headerLink">Worldwide</a>
+       </div>
+     </div>
+     <!-- End of the header -->    <!-- End of the header -->
+     <div class="container-fluid" id="wrapper">
+       <h4 id='us-cases-title'>COVID-19 Deaths By Country</h4>
+       <canvas id="worldwideDeaths"></canvas>
+     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
