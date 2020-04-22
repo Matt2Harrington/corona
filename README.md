@@ -36,6 +36,7 @@ COVID-19
 - `data_id` links to the id in the data table for specific data records
 
 ## Cleanup
+- As of v0.9, cleanup is performed within the API itself so manual cleanup is at own discretion
 - In case there is duplicate data, simply run the `table_cleanup.sql` file against the database
 - Based on time_ran column, which is automated on insert inside of go
 
