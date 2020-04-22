@@ -33,6 +33,10 @@ const (
 									VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)`
 
 	insertInfoStatement string = `INSERT INTO info (id, api_id, latitude, longitude, data_id, updated, time_ran) VALUES ($1, $2, $3, $4, $5, $6, $7)`
+
+	cleanupCountryData string = `DELETE FROM data a using data b where a.time_ran < b.time_ran and a.cases = b.cases and a.country = b.country;`
+
+	cleanupInfoData string = `DELETE FROM info a using info b where a.time_ran < b.time_ran and a.api_id = b.api_id and a.latitude = b.latitude and a.longitude = b.longitude;`
 )
 
 // Coronavirus struct
@@ -150,11 +154,49 @@ func insertDataToPostgres() error {
 	return nil
 }
 
+func cleanupData() error {
+	_, err = db.Exec(cleanupCountryData)
+	if err != nil {
+		return err
+	}
+
+	_, err = db.Exec(cleanupInfoData)
+	if err != nil {
+		return err
+	}
+
+	fmt.Println("Data Cleaned at: " + time.Now().String())
+	return nil
+}
+
 func apiGetTimer() {
 	for {
 		time.Sleep(1 * time.Hour)
 		go callingData()
 	}
+}
+
+func initialRun() error {
+	// call to database to setup
+	db, err = setUpPostgres()
+	if err != nil {
+		return err
+	}
+	defer db.Close()
+
+	// func to call API to get JSON data for first initial run
+	err := requestAPI()
+	if err != nil {
+		return err
+	}
+
+	// inserts data into postgres for first initial run
+	err = insertDataToPostgres()
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func callingData() {
@@ -164,28 +206,21 @@ func callingData() {
 		log.Fatal(err)
 	}
 
+	// inserts data each hour
 	err = insertDataToPostgres()
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	// cleans up data each hour
+	err = cleanupData()
 	if err != nil {
 		log.Fatal(err)
 	}
 }
 
 func main() {
-	// call to database to setup
-	db, err = setUpPostgres()
-	if err != nil {
-		log.Fatal(err)
-	}
-	defer db.Close()
-
-	// func to call API to get JSON data for first initial run
-	err := requestAPI()
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	// inserts data into postgres for first initial run
-	err = insertDataToPostgres()
+	err = initialRun()
 	if err != nil {
 		log.Fatal(err)
 	}
