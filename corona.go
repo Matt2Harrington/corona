@@ -196,6 +196,12 @@ func initialRun() error {
 		return err
 	}
 
+	// cleans up data on initial run
+	err = cleanupData()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
