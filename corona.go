@@ -182,7 +182,6 @@ func initialRun() error {
 	if err != nil {
 		return err
 	}
-	defer db.Close()
 
 	// func to call API to get JSON data for first initial run
 	err := requestAPI()
