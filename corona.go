@@ -5,9 +5,12 @@ import (
 	"fmt"
 	"github.com/alecthomas/gometalinter/_linters/src/gopkg.in/yaml.v2"
 	"github.com/google/uuid"
+	"github.com/joho/godotenv"
 	"io/ioutil"
 	"log"
 	"net/http"
+	"os"
+	"strconv"
 	"time"
 	"database/sql"
 	//"github.com/google/uuid"
@@ -83,10 +86,41 @@ func (c *Postgres) getPostgres() *Postgres {
 	return c
 }
 
-func setUpPostgres() (*sql.DB, error) {
-	values := pg.getPostgres()
-	psqlInfo := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable",
-		values.Host, values.Port, values.User, values.DBName)
+func (c *Postgres) getPostgresENV() []string {
+	var values []string
+	if err := godotenv.Load(); err != nil {
+		log.Print("No .env file found")
+	}
+
+	hostEnv := os.Getenv("host")
+	usernameEnv := os.Getenv("user")
+	passwordEnv := os.Getenv("password")
+	portEnv := os.Getenv("port")
+	dataNameEnv := os.Getenv("database")
+
+	values = append(values, hostEnv)
+	values = append(values, portEnv)
+	values = append(values, usernameEnv)
+	values = append(values, passwordEnv)
+	values = append(values, dataNameEnv)
+
+	return values
+}
+
+func setUpPostgres(local bool) (*sql.DB, error) {
+	var psqlInfo string
+	if local {
+		values := pg.getPostgres()
+		psqlInfo = fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable",
+			values.Host, values.Port, values.User, values.DBName)
+	} else {
+		values := pg.getPostgresENV()
+		port, _ := strconv.Atoi(values[1])
+		psqlInfo = fmt.Sprintf("host=%s port=%d user=%s password=%s dbname=%s sslmode=require",
+			values[0], port, values[2], values[3], values[4])
+
+		fmt.Print(values)
+	}
 
 	db, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
@@ -178,7 +212,7 @@ func apiGetTimer() {
 
 func initialRun() error {
 	// call to database to setup
-	db, err = setUpPostgres()
+	db, err = setUpPostgres(true)
 	if err != nil {
 		return err
 	}
