@@ -1,0 +1,1 @@
+worker: go corona.go
