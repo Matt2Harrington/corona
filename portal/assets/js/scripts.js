@@ -54,5 +54,5 @@ $(document).ready(function () {
       }
     }
       // console.log(dataResults[0]['DataList'][0].length)
-  },100);
+  },200);
 })
